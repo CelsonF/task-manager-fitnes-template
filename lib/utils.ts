@@ -26,8 +26,8 @@ export function getCompletedTasksByDate(tasks: Task[]): { [date: string]: number
   const completedTasks: { [date: string]: number } = {}
 
   tasks.forEach((task) => {
-    if (task.completed) {
-      const date = task.createdAt.split("T")[0]
+    if (task.completed && task.completedAt) {
+      const date = task.completedAt.split('T')[0]
       completedTasks[date] = (completedTasks[date] || 0) + 1
     }
   })
@@ -35,6 +35,27 @@ export function getCompletedTasksByDate(tasks: Task[]): { [date: string]: number
   return completedTasks
 }
 
+export function getCurrentLocalDate(timeZone: string): string {
+  const now = new Date()
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }
+  return new Intl.DateTimeFormat('en-US', options).format(now).replace(/(\d+)\/(\d+)\/(\d+),/, '$3-$1-$2T')
+}
+
+export const timeZones = [
+  { label: 'Brasil - São Paulo', value: 'America/Sao_Paulo' },
+  { label: 'EUA - Nova York', value: 'America/New_York' },
+  { label: 'EUA - Los Angeles', value: 'America/Los_Angeles' },
+  { label: 'EUA - Chicago', value: 'America/Chicago' },
+]
 
 
 export function cn(...inputs: ClassValue[]) {

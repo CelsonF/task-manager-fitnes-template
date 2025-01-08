@@ -3,5 +3,5 @@ export interface Task {
   text: string
   completed: boolean
   createdAt: string
+  completedAt: string | null
 }
-

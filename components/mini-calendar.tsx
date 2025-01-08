@@ -6,9 +6,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface MiniCalendarProps {
   completedTasks: { [date: string]: number }
+  timeZone: string
 }
 
-export function MiniCalendar({ completedTasks }: MiniCalendarProps) {
+export function MiniCalendar({ completedTasks, timeZone }: MiniCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date())
 
   const daysInMonth = new Date(
@@ -35,6 +36,16 @@ export function MiniCalendar({ completedTasks }: MiniCalendarProps) {
     )
   }
 
+  const formatDate = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = { 
+      timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }
+    return new Intl.DateTimeFormat('en-CA', options).format(date)
+  }
+
   return (
     <div className="w-64">
       <div className="flex justify-between items-center mb-2">
@@ -42,8 +53,8 @@ export function MiniCalendar({ completedTasks }: MiniCalendarProps) {
           <ChevronLeft className="h-4 w-4" />
         </Button>
         <span className="font-semibold">
-          {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentDate.getFullYear()}
+          {currentDate.toLocaleString("default", { month: "long", timeZone })}{" "}
+          {currentDate.toLocaleString("default", { year: "numeric", timeZone })}
         </span>
         <Button variant="outline" size="sm" onClick={nextMonth} className="text-orange-500 hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300">
           <ChevronRight className="h-4 w-4" />
@@ -65,7 +76,7 @@ export function MiniCalendar({ completedTasks }: MiniCalendarProps) {
             currentDate.getMonth(),
             day
           )
-          const dateString = date.toISOString().split("T")[0]
+          const dateString = formatDate(date)
           const completedCount = completedTasks[dateString] || 0
 
           return (
