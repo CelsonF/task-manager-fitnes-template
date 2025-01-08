@@ -9,7 +9,7 @@ interface TimeZoneSelectorProps {
 export function TimeZoneSelector({ selectedTimeZone, onTimeZoneChange }: TimeZoneSelectorProps) {
   return (
     <Select value={selectedTimeZone} onValueChange={onTimeZoneChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-full mt-4">
         <SelectValue placeholder="Selecione o fuso horário" />
       </SelectTrigger>
       <SelectContent>

@@ -68,7 +68,7 @@ export default function TaskManager() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div className="md:col-span-2 space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap justify-between items-center">
           <AddTaskForm onAddTask={addTask} />
           <TimeZoneSelector selectedTimeZone={timeZone} onTimeZoneChange={handleTimeZoneChange} />
         </div>

@@ -21,7 +21,7 @@ export function AddTaskForm({ onAddTask }: AddTaskFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center space-x-2">
+    <form onSubmit={handleSubmit} className="flex w-full items-center space-x-2">
       <Input
         type="text"
         placeholder="Adicionar nova tarefa"
